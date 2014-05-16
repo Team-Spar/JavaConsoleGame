@@ -10,7 +10,7 @@ public class Shoot extends JFrame {
 	private Image dbImage;
     private Graphics dbg;
     
-    static Ship s1 = new Ship();
+    public static Ship s1 = new Ship();
         
     public Shoot(){
         setSize(400,300);

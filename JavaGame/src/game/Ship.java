@@ -6,11 +6,10 @@ import java.util.ArrayList;
 
 public class Ship implements Runnable {
     
-    int x;
-    int y;
-    int xDirection;
-    boolean readyToFire;
-    boolean shot = false;
+	private int x;
+    private int y;
+    private int xDirection;
+    private boolean shot = false;
     
     ArrayList<Rectangle> bullets;
     int bulletX;
@@ -27,14 +26,11 @@ public class Ship implements Runnable {
         g.fillRect(x, y, 40, 10);
         g.fillRect(x+18, y-7, 7, 7);
         if(shot){
-        	/// TODO draw bullets
         	g.setColor(Color.BLACK);
         	for (int i = 0; i < bullets.size(); i++) {
 				Rectangle currentBullet = bullets.get(i);
 				g.fillRect(currentBullet.x, currentBullet.y, currentBullet.width, currentBullet.height);
 			}
-        	//g.setColor(Color.BLACK);
-        	//g.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
         }
     }
     
