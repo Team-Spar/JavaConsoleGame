@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class Shoot extends JFrame {
+public class GameMain extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private Image dbImage;
@@ -12,7 +12,7 @@ public class Shoot extends JFrame {
     
     public static Ship s1 = new Ship();
         
-    public Shoot(){
+    public GameMain(){
         setSize(400,300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
@@ -48,7 +48,7 @@ public class Shoot extends JFrame {
     }
     
     public static void main(String[] args) {
-        new Shoot();
+        new GameMain();
         //Threads
         Thread ship = new Thread(s1);
         ship.start();
