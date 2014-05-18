@@ -26,7 +26,7 @@ public class Ship implements Runnable {
         g.fillRect(x, y, 40, 10);
         g.fillRect(x+18, y-7, 7, 7);
         if(shot){
-        	g.setColor(Color.BLACK);
+        	g.setColor(Color.ORANGE);
         	for (int i = 0; i < bullets.size(); i++) {
 				Rectangle currentBullet = bullets.get(i);
 				g.fillRect(currentBullet.x, currentBullet.y, currentBullet.width, currentBullet.height);
