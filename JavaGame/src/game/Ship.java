@@ -4,32 +4,36 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 public class Ship implements Runnable {
     
+	private Image img;
 	private int x;
     private int y;
     private int xDirection;
     private boolean shot = false;
-    
-    ArrayList<Rectangle> bullets;
-    int bulletX;
-    int bulletY;
+    private ArrayList<Bullets> bullets;
     
     public Ship(){
         x = 175;
-        y = 275;
+        y = 250;
         bullets = new ArrayList<>();
+        ImageIcon imgIcon = new ImageIcon("/home/hadzhiyski/Java/Projects/JavaGameTest/img/ship.png");
+		img = imgIcon.getImage();
+    }
+    
+    public ArrayList<Bullets> getBullets(){
+    	return this.bullets;
     }
     
     public void draw(Graphics g){
-        g.setColor(Color.BLUE);
-        g.fillRect(x, y, 40, 10);
-        g.fillRect(x+18, y-7, 7, 7);
+        g.drawImage(img, this.x, this.y, null);
         if(shot){
         	g.setColor(Color.ORANGE);
         	for (int i = 0; i < bullets.size(); i++) {
-				Rectangle currentBullet = bullets.get(i);
-				g.fillRect(currentBullet.x, currentBullet.y, currentBullet.width, currentBullet.height);
+				Bullets currentBullet = bullets.get(i);
+				g.fillRect(currentBullet.getX(), currentBullet.getY(), currentBullet.getWidth(), currentBullet.getHeight());
 			}
         }
     }
@@ -44,8 +48,9 @@ public class Ship implements Runnable {
     
     public void shoot(){
     	if(shot){
-    		for (Rectangle bullet : bullets) {
-    			bullet.y--;
+    		for (Bullets bullet : bullets) {
+    			int bulY = bullet.getY();
+    			bullet.setY(bulY - 1);
 			}
     	}
     }
@@ -63,9 +68,9 @@ public class Ship implements Runnable {
             setXDirection(1);
         }
         if(keyCode == KeyEvent.VK_SPACE){
-        		bulletY = y - 7;
-        		bulletX = x + 18;
-        		bullets.add(new Rectangle(bulletX, bulletY, 3, 5));
+        		new Sound().ShotSoundPlay();
+        		Bullets bullet = new Bullets(x + 18, y - 7, 3, 5);
+        		bullets.add(bullet);
         		shot = true;
         }
     }
@@ -79,8 +84,8 @@ public class Ship implements Runnable {
         }
         if(keyCode == KeyEvent.VK_SPACE){
         	for (int i = 0; i < bullets.size(); i++) {
-				Rectangle bullet = bullets.get(i);
-				if(bullet.y < 0){
+				Bullets bullet = bullets.get(i);
+				if(bullet.getY() < 0){
 					bullets.remove(i);
 				}
 			}
@@ -90,7 +95,7 @@ public class Ship implements Runnable {
     @Override
     public void run(){
         try{
-            while(true){
+            while(Sound.isPlaying){
             	shoot();
                 move();
                 Thread.sleep(5);
